@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'; // Dodajemy import PropTypes
 
 export const Widget = () => {
   const [feedback, setFeedback] = useState({
@@ -49,12 +50,19 @@ export const Widget = () => {
   );
 };
 
+Widget.propTypes = {};
+
 const Section = ({ title, children }) => (
   <div>
     <h2>{title}</h2>
     {children}
   </div>
 );
+
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
 
 const FeedbackOptions = ({ options, onLeaveFeedback }) => (
   <div>
@@ -70,6 +78,11 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => (
   </div>
 );
 
+FeedbackOptions.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string).isRequired, // options to tablica ciągów znaków i jest wymagana
+  onLeaveFeedback: PropTypes.func.isRequired, // onLeaveFeedback to funkcja i jest wymagana
+};
+
 const Statistics = ({ good, neutral, bad, total, positivePercentage }) => (
   <div>
     <p>Good: {good}</p>
@@ -80,4 +93,16 @@ const Statistics = ({ good, neutral, bad, total, positivePercentage }) => (
   </div>
 );
 
+Statistics.propTypes = {
+  good: PropTypes.number.isRequired, // good to liczba i jest wymagana
+  neutral: PropTypes.number.isRequired, // neutral to liczba i jest wymagana
+  bad: PropTypes.number.isRequired, // bad to liczba i jest wymagana
+  total: PropTypes.number.isRequired, // total to liczba i jest wymagana
+  positivePercentage: PropTypes.number.isRequired, // positivePercentage to liczba i jest wymagana
+};
+
 const Notification = ({ message }) => <p>{message}</p>;
+
+Notification.propTypes = {
+  message: PropTypes.string.isRequired,
+};
